@@ -11,7 +11,6 @@ class Scene:
 		pygame.display.set_caption(self.config["window"]["title"])
 
 		self.running = True # Indicates if the program is running: on False, the whole thing shuts down
-		# TODO: Eat cabbage
 
 	def checkEvents(self):
 		"""
