@@ -3,5 +3,8 @@
         "width": 800,
         "height": 500,
         "title": "Invaders"
+    },
+    "graphics": {
+        "bg": "data/graphics/starry-bg.png"
     }
 }

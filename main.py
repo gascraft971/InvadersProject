@@ -1,5 +1,5 @@
 import pygame
-from classes import Scene, Level, config
+from classes import Scene, config
 
 # Set up the config class to import stuff from the config.json file
 global CONFIG

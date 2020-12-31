@@ -1,4 +1,5 @@
-from classes import config
+from main import CONFIG
+from classes import Level, GameLevel
 import pygame
 from pygame.locals import *
 
@@ -27,6 +28,10 @@ class Scene:
     
 	def main(self):
 		""" The main loop: supervises everything on screen """
+		self.level = GameLevel.GameLevel(self.config)
 		while self.running:
 			self.checkEvents()
+			self.display.blit(self.level.getSurface(), (0, 0))
+			pygame.display.update()
+			pygame.display.flip()
 		self.destroy()
