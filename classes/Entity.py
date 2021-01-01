@@ -3,8 +3,9 @@ from pygame.locals import *
 from classes import P, V
 
 class Entity(pygame.sprite.Sprite):
-	def __init__(self, config) -> None:
+	def __init__(self, config, scene) -> None:
 		super().__init__()
+		self.scene = scene
 		self.config = config
 		self.id = uuid.uuid4()
 		self.position = P.P(0, 0)

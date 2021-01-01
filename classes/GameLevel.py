@@ -15,7 +15,7 @@ class GameLevel(Level.Level):
 	
 	def spawnShips(self) -> None: # TODO: Finish
 		for playerIndex in range(1):
-			player = Player.Player(self.config)
+			player = Player.Player(self.config, self.scene)
 			self.players.append(PlayerData.PlayerData(playerIndex, "P{}".format(playerIndex), player))
 			self.entities.add(player)
 		
@@ -41,7 +41,6 @@ class GameLevel(Level.Level):
 					print("Button Y pressed")
 		
 		js = self.scene.joysticks[player.playerNumber]
-		print("Axis X: ", js.get_axis(0), " - Axis Y: ", js.get_axis(1))
 		if js.get_axis(0) != 0 or js.get_axis(1) != 0: # The controller is being pressed!
 			eventName = "NONE"
 			if js.get_axis(0) != 0:

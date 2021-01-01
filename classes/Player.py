@@ -1,10 +1,10 @@
 import pygame
 from pygame.locals import *
-from classes import Ship, P, V
+from classes import Ship, P, V, Missile
 
 class Player(Ship.Ship):
-	def __init__(self, config) -> None:
-		super().__init__(config)
+	def __init__(self, config, scene) -> None:
+		super().__init__(config, scene)
 		# Here we load the image, scale it to 40 % of its original size and the set is as our image
 		self.originalImage = pygame.transform.scale(pygame.image.load(self.config["sprites"]["players"]["squadron_leader"]).convert_alpha(), (int(293 * 0.2), int(226 * 0.2)))
 		self.image = self.originalImage
@@ -29,5 +29,11 @@ class Player(Ship.Ship):
 		elif eventType == "MOVE_UP":
 			if self.velocity.getY() > -self.config["physics"]["speed"]["max_thruster_speed"]:
 				self.velocity.addY(-self.config["physics"]["speed"]["thruster_boost"])
+		elif eventType == "BTN_X":
+			self.shootMissile()
+	
+	def shootMissile(self):
+		missile = Missile.Missile(self.config, self.scene, self)
+		self.scene.level.entities.add(missile)
 		
 
