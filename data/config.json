@@ -1,10 +1,23 @@
 {
     "window": {
-        "width": 800,
-        "height": 500,
+        "width": 1200,
+        "height": 800,
         "title": "Invaders"
     },
     "graphics": {
         "bg": "data/graphics/starry-bg.png"
+    },
+    "keymaps": {
+        "0": {
+            "up": "K_UP",
+            "down": "K_DOWN",
+            "right": "K_RIGHT",
+            "left": "K_LEFT"
+        }
+    },
+    "sprites": {
+        "players": {
+            "squadron_leader": "data/sprites/player/squadron_leader.png"
+        }
     }
 }
