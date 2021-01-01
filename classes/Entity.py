@@ -23,4 +23,16 @@ class Entity(pygame.sprite.Sprite):
 	def update(self) -> None:
 		super().update()
 		self.position = self.velocity.calculateNewPosition(self.position)
+		if self.position.getX() > self.config["window"]["width"]:
+			self.position.setX(self.config["window"]["width"])
+			self.velocity.setX(0)
+		elif self.position.getX() < 0:
+			self.position.setX(0)
+			self.velocity.setX(0)
+		if self.position.getY() > self.config["window"]["height"]:
+			self.position.setY(self.config["window"]["height"])
+			self.velocity.setY(0)
+		elif self.position.getY() < 0:
+			self.position.setY(0)
+			self.velocity.setY(0)
 		self.updateRect()

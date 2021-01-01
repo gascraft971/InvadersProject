@@ -18,9 +18,11 @@ class Player(Ship.Ship):
 		if eventType == "MOVE_RIGHT":
 			if self.velocity.getX() < self.config["physics"]["speed"]["max_reactor_speed"]:
 				self.velocity.addX(self.config["physics"]["speed"]["reactor_boost"])
+				self.rotation = 90
 		elif eventType == "MOVE_LEFT":
 			if self.velocity.getX() > -self.config["physics"]["speed"]["max_reactor_speed"]:
 				self.velocity.addX(-self.config["physics"]["speed"]["reactor_boost"])
+				self.rotation = 270
 		elif eventType == "MOVE_DOWN":
 			if self.velocity.getY() < self.config["physics"]["speed"]["max_thruster_speed"]:
 				self.velocity.addY(self.config["physics"]["speed"]["thruster_boost"])

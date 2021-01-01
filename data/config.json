@@ -19,11 +19,16 @@
     "sprites": {
         "players": {
             "squadron_leader": "data/sprites/player/squadron_leader.png"
+        },
+        "missiles": {
+            "regular": {
+                "nopulse": "data/sprites/missiles/missile_regular_nopulse.png"
+            }
         }
     },
     "physics": {
         "speed": {
-            "reactor_boost": 3,
+            "reactor_boost": 1,
             "max_reactor_speed": 12,
             "thruster_boost": 1,
             "max_thruster_speed": 7

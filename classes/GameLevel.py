@@ -1,7 +1,7 @@
 import pygame
-import collections
+import time
 from pygame.locals import *
-from classes import Level, Entity, Ship, PlayerData, Scene, Player
+from classes import Level, PlayerData, Scene, Player
 
 class GameLevel(Level.Level):
 	def __init__(self, config, scene: Scene) -> None:
@@ -29,31 +29,33 @@ class GameLevel(Level.Level):
 				for key in bindings.values():
 					if globals()[key] == event.key:
 						pass
-
-			if event.type == JOYAXISMOTION and event.__dict__["joy"] is player.playerNumber:
-				eventName = "NONE"
-				if event.__dict__["axis"] == 0:
-					if round(event.__dict__["value"]) == 1:
-						eventName = "MOVE_RIGHT"
-					elif round(event.__dict__["value"]) == -1:
-						eventName = "MOVE_LEFT"
-				elif event.__dict__["axis"] == 1:
-					if round(event.__dict__["value"]) == 1:
-						eventName = "MOVE_DOWN"
-					elif round(event.__dict__["value"]) == -1:
-						eventName = "MOVE_UP"
-				
-				player.player.event(eventName)
 			
 			if event.type == JOYBUTTONDOWN and event.__dict__["joy"] is player.playerNumber:
 				if event.__dict__["button"] is 0:
-					print("Button X pressed")
+					player.player.event("BTN_X")
 				if event.__dict__["button"] is 1:
 					print("Button A pressed")
 				if event.__dict__["button"] is 2:
 					print("Button B pressed")
 				if event.__dict__["button"] is 3:
 					print("Button Y pressed")
+		
+		js = self.scene.joysticks[player.playerNumber]
+		print("Axis X: ", js.get_axis(0), " - Axis Y: ", js.get_axis(1))
+		if js.get_axis(0) != 0 or js.get_axis(1) != 0: # The controller is being pressed!
+			eventName = "NONE"
+			if js.get_axis(0) != 0:
+				if round(js.get_axis(0)) == 1:
+					eventName = "MOVE_RIGHT"
+				elif round(js.get_axis(0)) == -1:
+					eventName = "MOVE_LEFT"
+			elif js.get_axis(1) != 0:
+				if round(js.get_axis(1)) == 1:
+					eventName = "MOVE_DOWN"
+				elif round(js.get_axis(1)) == -1:
+					eventName = "MOVE_UP"
+			
+			player.player.event(eventName)
 
 	def update(self) -> None:
 		""" The logic that runs every frame """
