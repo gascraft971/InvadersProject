@@ -7,16 +7,17 @@ class GameLevel(Level.Level):
 	def __init__(self, config, scene: Scene) -> None:
 		super().__init__(config, scene)
 		self.bgImage = pygame.Surface((1, 1)) # TODO: Replace with an actual cool image
-		self.surface = pygame.transform.scale(self.bgImage, (self.config["window"]["width"], self.config["window"]["height"]))
-		self.players = collections.OrderedDict()
-		self.players[0] = PlayerData.PlayerData(0, "Gascraft2")
+		self.originalSurface = pygame.transform.scale(self.bgImage, (self.config["window"]["width"], self.config["window"]["height"]))
+		self.surface = self.originalSurface.copy()
+		self.players = []
 
 		self.spawnShips()
 	
 	def spawnShips(self) -> None: # TODO: Finish
-		for _ in range(1):
-			entity = Player.Player(self.config)
-			self.entities.add(entity)
+		for playerIndex in range(1):
+			player = Player.Player(self.config)
+			self.players.append(PlayerData.PlayerData(playerIndex, "P{}".format(playerIndex), player))
+			self.entities.add(player)
 		
 	def checkInput(self, player: dict) -> None: # TODO: Finish
 		""" Check if there has been any input from the players """
@@ -30,16 +31,19 @@ class GameLevel(Level.Level):
 						pass
 
 			if event.type == JOYAXISMOTION and event.__dict__["joy"] is player.playerNumber:
+				eventName = "NONE"
 				if event.__dict__["axis"] == 0:
 					if round(event.__dict__["value"]) == 1:
-						print("Saw RIGHT")
+						eventName = "MOVE_RIGHT"
 					elif round(event.__dict__["value"]) == -1:
-						print("Saw LEFT")
+						eventName = "MOVE_LEFT"
 				elif event.__dict__["axis"] == 1:
 					if round(event.__dict__["value"]) == 1:
-						print("Saw DOWN")
+						eventName = "MOVE_DOWN"
 					elif round(event.__dict__["value"]) == -1:
-						print("Saw UP")
+						eventName = "MOVE_UP"
+				
+				player.player.event(eventName)
 			
 			if event.type == JOYBUTTONDOWN and event.__dict__["joy"] is player.playerNumber:
 				if event.__dict__["button"] is 0:
@@ -54,6 +58,8 @@ class GameLevel(Level.Level):
 	def update(self) -> None:
 		""" The logic that runs every frame """
 		# The part that checks for user input
-		for player in self.players.values():
+		self.surface = self.originalSurface.copy()
+		for player in self.players:
 			self.checkInput(player)
+			player.player.update()
 		self.entities.draw(self.surface)

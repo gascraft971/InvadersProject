@@ -49,4 +49,5 @@ class Scene:
 			self.display.blit(self.level.getSurface(), (0, 0))
 			pygame.display.update()
 			pygame.display.flip()
+			self.clock.tick(self.config["window"]["FPS"])
 		self.destroy()

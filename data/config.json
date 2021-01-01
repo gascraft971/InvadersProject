@@ -2,7 +2,8 @@
     "window": {
         "width": 1200,
         "height": 800,
-        "title": "Invaders"
+        "title": "Invaders",
+        "FPS": 60
     },
     "graphics": {
         "bg": "data/graphics/starry-bg.png"
@@ -18,6 +19,14 @@
     "sprites": {
         "players": {
             "squadron_leader": "data/sprites/player/squadron_leader.png"
+        }
+    },
+    "physics": {
+        "speed": {
+            "reactor_boost": 3,
+            "max_reactor_speed": 12,
+            "thruster_boost": 1,
+            "max_thruster_speed": 7
         }
     }
 }

@@ -7,7 +7,8 @@ class Level:
 		self.config = config
 		self.entities = pygame.sprite.Group()
 		self.scene = scene
-		self.surface = surface = pygame.Surface((self.config["window"]["width"], self.config["window"]["width"]))
+		self.originalSurface = pygame.Surface((self.config["window"]["width"], self.config["window"]["width"]))
+		self.surface = self.originalSurface
 
 	def getSurface(self) -> pygame.Surface:
 		return self.surface
